@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.ms.authentication.ui.login.LoginScreen
+import com.ms.trackify.authentication.AuthNavigation
 import com.ms.trackify.ui.theme.TrackifyTheme
 
 class MainActivity : ComponentActivity() {
@@ -20,13 +21,8 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             TrackifyTheme {
-//                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-//                    Greeting(
-//                        name = "Android",
-//                        modifier = Modifier.padding(innerPadding)
-//                    )
-//                }
-                LoginScreen()
+//                LoginScreen()
+                AuthNavigation()
             }
         }
     }

@@ -60,6 +60,7 @@ dependencies {
     implementation(libs.authentication)
     implementation(libs.apptheme)
     implementation(libs.hilt.android)
+    implementation(libs.transport.runtime)
 
     //DI
     kapt(libs.hilt.android.compiler)
@@ -69,6 +70,13 @@ dependencies {
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.analytics)
     implementation(libs.firebase.auth)
+    implementation(libs.firebase.database)
+
+    //Credential Manager libraries and specify their versions for google sign in
+    implementation(libs.androidx.credentials)
+    implementation(libs.androidx.credentials.play.services.auth)
+    implementation(libs.googleid)
+
 
     testImplementation(libs.junit)
     testImplementation(libs.hilt.android.testing)
