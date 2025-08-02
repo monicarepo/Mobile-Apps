@@ -1,5 +1,7 @@
 package com.ms.trackify.authentication
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -7,6 +9,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 
+@RequiresApi(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
 @Composable
 fun AuthNavigation() {
     val navController = rememberNavController()
@@ -26,7 +29,7 @@ fun AuthNavigation() {
         startDestination = if (authState is AuthState.Authenticated) "home" else "login"
     ) {
         composable("login") {
-            GoogleSignInScreen(onNavigateToHome = {
+            LoginScreen(onSignInSuccess = {
                 navController.navigate("home") {
                     popUpTo("login") { inclusive = true }
                 }

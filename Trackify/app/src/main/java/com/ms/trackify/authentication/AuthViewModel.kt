@@ -1,6 +1,5 @@
 package com.ms.trackify.authentication
 
-import android.app.Activity
 import android.content.Context
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -67,10 +66,10 @@ class AuthViewModel @Inject constructor(
         }
     }
 
-    fun signInWithGoogle(activity: Activity) {
+    fun signInWithGoogle(context: Context) {
         _authState = AuthState.Loading
         viewModelScope.launch {
-            _authState = when (val result = authRepository.signInWithGoogle(activity)) {
+            _authState = when (val result = authRepository.signInWithGoogle(context)) {
                 is AuthResult.Success -> {
                     AuthState.Authenticated(result.user)
                 }
@@ -92,5 +91,6 @@ class AuthViewModel @Inject constructor(
             _authState = AuthState.Idle
         }
     }
+
 }
 

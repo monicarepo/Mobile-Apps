@@ -1,11 +1,12 @@
 package com.ms.trackify.authentication
 
 import android.app.Activity
+import android.content.Context
 import com.google.firebase.auth.FirebaseUser
 
 data class LoginUiState(
-    val email: String = "",
-    val password: String = "",
+    val email: String = "monicaamalanathan@gmail.com",
+    val password: String = "Moni@123",
     val isEmailError: Boolean = false,
     val emailErrorText: String = "",
     val isPasswordError: Boolean = false,
@@ -13,7 +14,7 @@ data class LoginUiState(
 )
 
 interface AuthRepository {
-    suspend fun signInWithGoogle(activity: Activity): AuthResult
+    suspend fun signInWithGoogle(context: Context): AuthResult
     suspend fun signOut()
     fun getCurrentUser(): FirebaseUser?
 }
