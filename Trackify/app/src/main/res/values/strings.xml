@@ -1,3 +1,40 @@
 <resources>
     <string name="app_name">Trackify</string>
+    <string name="cancel">Cancel</string>
+    <string name="error_generic">Something went wrong</string>
+    <string name="try_again">Try Again</string>
+    <string name="loading">Loading…</string>
+
+    <string name="camera_permission_title">Camera Permission Required</string>
+    <string name="camera_permission_message">This app needs camera access to detect your face for registration</string>
+    <string name="permission_denied">Permission denied</string>
+    <string name="go_to_settings">Go to Settings</string>
+
+    <!-- Face Registration Screen -->
+    <string name="add_user">Add User</string>
+    <string name="face_registration_title">Face Registration</string>
+    <string name="username_hint">Username</string>
+    <string name="email_hint">Email</string>
+    <string name="register_face_button">Register Face</string>
+    <string name="face_detected">Face detected</string>
+    <string name="no_face_detected">No face detected</string>
+    <string name="position_face">Position your face in the frame</string>
+    <string name="capture_instruction">Make sure your face is clearly visible</string>
+    <string name="registration_complete">Registration Complete!</string>
+    <string name="continue_button">Continue</string>
+
+    <!-- Validation Errors -->
+    <string name="error_username_empty">Username cannot be empty</string>
+    <string name="error_email_empty">Email cannot be empty</string>
+    <string name="error_email_invalid">Please enter a valid email</string>
+    <string name="error_no_face">No face detected</string>
+    <string name="error_capture_failed">Failed to capture image</string>
+
+    <!-- Camera Strings -->
+    <string name="camera_error">Camera error occurred</string>
+    <string name="camera_unavailable">Camera unavailable</string>
+
+    <!-- Success Messages -->
+    <string name="registration_success">Registration successful!</string>
+
 </resources>

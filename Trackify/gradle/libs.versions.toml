@@ -1,6 +1,10 @@
 [versions]
+accompanistPermissions = "0.32.0"
 agp = "8.10.0"
+cameraCamera2 = "1.4.2"
+coilCompose = "2.4.0"
 credentials = "1.5.0"
+faceDetection = "16.1.7"
 facedetector = "c2b46514d2"
 googleid = "1.1.1"
 hiltNavigationCompose = "1.2.0"
@@ -9,6 +13,8 @@ coreKtx = "1.16.0"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
+kotlinxCoroutinesAndroid = "1.10.2"
+kotlinxCoroutinesCore = "1.7.3"
 lifecycleRuntimeKtx = "2.9.1"
 activityCompose = "1.10.1"
 composeBom = "2024.09.00"
@@ -16,14 +22,23 @@ hiltAndroid = "2.56.2"
 hiltAndroidTesting = "2.48"
 firebaseBom = "33.12.0"
 transportRuntime = "4.0.0"
+cameraCore = "1.4.2"
+firebaseStorageKtx = "22.0.0"
+navigationeventAndroid = "1.0.0-alpha05"
 
 [libraries]
+accompanist-permissions = { module = "com.google.accompanist:accompanist-permissions", version.ref = "accompanistPermissions" }
+androidx-camera-camera2 = { module = "androidx.camera:camera-camera2", version.ref = "cameraCamera2" }
+androidx-camera-lifecycle = { module = "androidx.camera:camera-lifecycle", version.ref = "cameraCamera2" }
+androidx-camera-view = { module = "androidx.camera:camera-view", version.ref = "cameraCamera2" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-credentials = { module = "androidx.credentials:credentials", version.ref = "credentials" }
 androidx-credentials-play-services-auth = { module = "androidx.credentials:credentials-play-services-auth", version.ref = "credentials" }
 androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavigationCompose" }
 apptheme = { module = "com.github.monicarepo.MyApp:appTheme", version.ref = "facedetector" }
 authentication = { module = "com.github.monicarepo.MyApp:Authentication", version.ref = "facedetector" }
+coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilCompose" }
+face-detection = { module = "com.google.mlkit:face-detection", version.ref = "faceDetection" }
 facedetector = { module = "com.github.monicarepo.MyApp:FaceDetector", version.ref = "facedetector" }
 findlocation = { module = "com.github.monicarepo.MyApp:FindLocation", version.ref = "facedetector" }
 firebase-database = { module = "com.google.firebase:firebase-database" }
@@ -41,6 +56,8 @@ androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-toolin
 androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
+kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinxCoroutinesAndroid" }
+kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutinesCore" }
 networklibrary = { module = "com.github.monicarepo.MyApp:NetworkLibrary", version.ref = "facedetector" }
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltAndroid" }
 hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hiltAndroid" }
@@ -49,6 +66,9 @@ firebase-analytics = { module = "com.google.firebase:firebase-analytics-ktx" }
 firebase-auth = { module = "com.google.firebase:firebase-auth-ktx" }
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
 transport-runtime = { group = "com.google.android.datatransport", name = "transport-runtime", version.ref = "transportRuntime" }
+androidx-camera-core = { group = "androidx.camera", name = "camera-core", version.ref = "cameraCore" }
+firebase-storage-ktx = { group = "com.google.firebase", name = "firebase-storage-ktx", version.ref = "firebaseStorageKtx" }
+androidx-navigationevent-android = { group = "androidx.navigationevent", name = "navigationevent-android", version.ref = "navigationeventAndroid" }
 
 
 [plugins]

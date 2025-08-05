@@ -8,6 +8,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import com.ms.trackify.Navigation.NavigationManager
 import com.ms.trackify.R
 import com.ms.trackify.authentication.AuthRepository
 import com.ms.trackify.authentication.AuthRepositoryImpl
@@ -59,6 +60,15 @@ object AuthModule {
         impl: AuthRepositoryImpl
     ): AuthRepository {
         return impl
+    }
+}
+
+@Module
+@InstallIn(SingletonComponent::class)
+object NavigationModule {
+    @Provides
+    fun provideNavigationManager(): NavigationManager {
+        return NavigationManager()
     }
 }
 

@@ -1,13 +1,16 @@
 package com.ms.trackify.authentication
 
 import android.content.Context
+import android.util.Log
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
+import com.ms.trackify.Navigation.NavigationManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jakarta.inject.Inject
 import kotlinx.coroutines.launch
@@ -16,12 +19,15 @@ import kotlinx.coroutines.launch
 class AuthViewModel @Inject constructor(
     private val auth: FirebaseAuth,
     private val authRepository: AuthRepository,
-    private val database: DatabaseReference
+    private val database: DatabaseReference,
+    val navigationManager: NavigationManager
 ) : ViewModel() {
 
     var uiState by mutableStateOf(LoginUiState())
     private var _authState by mutableStateOf<AuthState>(AuthState.Idle)
     val authState: AuthState get() = _authState
+
+    internal var stateVersion by mutableIntStateOf(0)
 
     init {
         checkCurrentUser()
@@ -31,6 +37,11 @@ class AuthViewModel @Inject constructor(
         authRepository.getCurrentUser()?.let { user ->
             _authState = AuthState.Authenticated(user)
         }
+    }
+
+    private fun updateAuthState(newState: AuthState) {
+        _authState = newState
+        stateVersion++ // This forces recomposition
     }
 
     fun onEmailChanged(value: String) {
@@ -67,28 +78,43 @@ class AuthViewModel @Inject constructor(
     }
 
     fun signInWithGoogle(context: Context) {
-        _authState = AuthState.Loading
+        updateAuthState(AuthState.Loading)
         viewModelScope.launch {
-            _authState = when (val result = authRepository.signInWithGoogle(context)) {
-                is AuthResult.Success -> {
-                    AuthState.Authenticated(result.user)
-                }
+            updateAuthState(
+                when (val result = authRepository.signInWithGoogle(context)) {
+                    is AuthResult.Success -> {
+                        AuthState.Authenticated(result.user)
+                    }
 
-                is AuthResult.Error -> {
-                    AuthState.Error(result.message)
-                }
+                    is AuthResult.Error -> {
+                        AuthState.Error(result.message)
+                    }
 
-                AuthResult.Loading -> {
-                    AuthState.Loading
+                    AuthResult.Loading -> {
+                        AuthState.Loading
+                    }
                 }
-            }
+            )
         }
     }
 
     fun signOut() {
         viewModelScope.launch {
-            authRepository.signOut()
-            _authState = AuthState.Idle
+            try {
+                Log.d("signOut","Before signOut: ${_authState}")
+                authRepository.signOut()
+                updateAuthState(AuthState.Idle)
+                Log.d("signOut","After signOut: ${_authState}")
+            } catch (e: Exception) {
+                Log.d("signOut","Exception signOut: ${e.message}")
+                updateAuthState(AuthState.Error("Sign out failed: ${e.message}"))
+            }
+        }
+    }
+
+    fun addUser() {
+        viewModelScope.launch {
+            navigationManager.navigateTo("face_registration")
         }
     }
 

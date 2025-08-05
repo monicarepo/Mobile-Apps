@@ -6,15 +6,11 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.annotation.RequiresApi
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.ms.authentication.ui.login.LoginScreen
-import com.ms.trackify.authentication.AuthNavigation
+import com.ms.trackify.Navigation.AuthNavigation
 import com.ms.trackify.ui.theme.TrackifyTheme
 import dagger.hilt.android.AndroidEntryPoint
 

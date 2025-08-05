@@ -10,12 +10,12 @@ plugins {
 
 android {
     namespace = "com.ms.trackify"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.ms.trackify"
         minSdk = 24
-        targetSdk = 35
+        targetSdk = 36
         versionCode = 1
         versionName = "1.0"
 
@@ -61,6 +61,24 @@ dependencies {
     implementation(libs.apptheme)
     implementation(libs.hilt.android)
     implementation(libs.transport.runtime)
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.kotlinx.coroutines.android)
+
+
+    // CameraX
+    implementation(libs.androidx.camera.core)
+    implementation(libs.androidx.camera.camera2)
+    implementation(libs.androidx.camera.lifecycle)
+    implementation(libs.androidx.camera.view)
+    implementation(libs.accompanist.permissions)
+
+    // ML Kit Face Detection
+    implementation(libs.face.detection)
+
+    // Coil for image loading
+    implementation(libs.coil.compose)
+    implementation(libs.androidx.navigationevent.android)
+
 
     //DI
     kapt(libs.hilt.android.compiler)

@@ -2,7 +2,6 @@ package com.ms.trackify.authentication
 
 import android.content.Context
 import android.util.Log
-import androidx.credentials.Credential
 import androidx.credentials.CredentialManager
 import androidx.credentials.CustomCredential
 import androidx.credentials.GetCredentialRequest
@@ -22,22 +21,6 @@ class AuthRepositoryImpl @Inject constructor(
 ) : AuthRepository {
 
     override fun getCurrentUser(): FirebaseUser? = auth.currentUser
-
-    private suspend fun handleCredential(credential: Credential): FirebaseUser {
-        return when {
-            credential is CustomCredential && credential.type == "https://accounts.google.com" -> {
-                val googleIdToken = GoogleIdTokenCredential
-                    .createFrom(credential.data)
-                    .idToken
-                    ?: throw Exception("Google ID token is null")
-
-                val firebaseCredential = GoogleAuthProvider.getCredential(googleIdToken, null)
-                val authResult = auth.signInWithCredential(firebaseCredential).await()
-                authResult.user ?: throw Exception("User not found after sign in")
-            }
-            else -> throw Exception("Unsupported credential type")
-        }
-    }
 
     override suspend fun signInWithGoogle(context: Context): AuthResult {
         return try {
