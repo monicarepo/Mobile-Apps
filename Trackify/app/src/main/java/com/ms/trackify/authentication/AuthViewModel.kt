@@ -26,11 +26,15 @@ class AuthViewModel @Inject constructor(
     var uiState by mutableStateOf(LoginUiState())
     private var _authState by mutableStateOf<AuthState>(AuthState.Idle)
     val authState: AuthState get() = _authState
-
     internal var stateVersion by mutableIntStateOf(0)
+    internal var currentUser: String? by mutableStateOf(null)
 
     init {
         checkCurrentUser()
+    }
+
+    fun setCurrentUser(user: String) {
+        currentUser = user
     }
 
     private fun checkCurrentUser() {

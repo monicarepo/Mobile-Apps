@@ -30,21 +30,24 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.compose.rememberNavController
 import com.ms.trackify.R
 
 @RequiresApi(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
 @Composable
 fun LoginScreen(
-    viewModel: AuthViewModel = hiltViewModel(),
+    viewModel: AuthViewModel,
     onSignInSuccess: () -> Unit = {},
     onNavigateToSignUp: () -> Unit = {}
 ) {
     val state = viewModel.uiState
     val context = LocalContext.current
     val authState = viewModel.authState
+    val navController = rememberNavController()
 
     LaunchedEffect(authState) {
         if (authState is AuthState.Authenticated) {
+            viewModel.setCurrentUser("Monica!")
             onSignInSuccess()
         }
     }

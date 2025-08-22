@@ -9,6 +9,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.annotation.RequiresApi
 import com.ms.apptheme.ui.theme.AppTheme
 import com.ms.trackify.MainActivity
+import com.ms.trackify.Navigation.AuthNavigation
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -20,20 +21,31 @@ class LoginActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             AppTheme {
-                LoginScreen(
-                    onSignInSuccess = { navigateToHome() },
-                    onNavigateToSignUp = { navigateToSignUp() }
-                )
+                AuthNavigation()
             }
         }
     }
-
-    private fun navigateToSignUp() {
-        startActivity(Intent(this, MainActivity::class.java))
-    }
-
-    private fun navigateToHome() {
-        startActivity(Intent(this, MainActivity::class.java))
-        finish()
-    }
 }
+
+/**
+ * From Main Activity to login activity
+ * Explicit Intent
+ *
+ * Intent(applicationContext, LoginActivity::java.class).also {
+ *      startActivity(it)
+ * }
+ *
+ * Open the youtube app or some other app
+ *
+ * Intent(Intent.ACTION_MAIN).also {
+ *  it.`package` = "com.google.android.youtube"
+ *  try {
+ *      startActivity(it)
+ *  } catch(e: ActivityNotFoundException) {
+ *      e.printStackTrace()
+ *  }
+ * }
+ *
+ * */
+
+

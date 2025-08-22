@@ -2,7 +2,9 @@ package com.ms.trackify.authentication
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
@@ -15,8 +17,11 @@ import androidx.compose.ui.unit.dp
 import com.ms.trackify.R
 
 @Composable
-fun HomeScreen(onSignOut: () -> Unit,
-               addUser: () -> Unit ) {
+fun HomeScreen(
+    onSignOut: () -> Unit,
+    addUser: () -> Unit,
+    viewModel: AuthViewModel
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -25,13 +30,19 @@ fun HomeScreen(onSignOut: () -> Unit,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "Welcome!",
+            text = "Welcome ${viewModel.currentUser ?: "Guest"}",
             style = MaterialTheme.typography.headlineMedium,
             modifier = Modifier.padding(bottom = 16.dp)
         )
+
+        Spacer(modifier = Modifier.height(16.dp))
+
         Button(onClick = addUser) {
             Text(stringResource(R.string.add_user))
         }
+
+        Spacer(modifier = Modifier.height(16.dp))
+
         Button(onClick = onSignOut) {
             Text("Sign Out")
         }
