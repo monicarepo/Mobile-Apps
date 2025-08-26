@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">CountryApp</string>
+    <string name="current_country_capital">Current Country Capital</string>
+    <string name="new_capital">New Capital</string>
+
+<!--    Icons -->
+    <string name="search">Search</string>
+    <string name="more">More</string>
+
+<!--    Button -->
+    <string name="confirm">Confirm</string>
+    <string name="cancel">Cancel</string>
+</resources>
