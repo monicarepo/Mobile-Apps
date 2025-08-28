@@ -1,4 +1,4 @@
-package com.ms.countryapp.composables
+package com.ms.countryapp.components
 
 import android.util.Log
 import androidx.compose.foundation.gestures.detectTapGestures
@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
@@ -39,18 +40,22 @@ fun CountryCardLayout(country: Country,
                 detectTapGestures(
                     onDoubleTap = {
                         Log.i(APP_TAG,"Double tap detected")
+                        showUpdateDialog.value = true
+                        viewModel.selectedCountryForUpdation.value = country
                     },
 
-                    onTap = {
-                        Log.i(APP_TAG,"Tap detected")
-                    },
-
-                    onPress = {
-                        Log.i(APP_TAG,"onPress detected")
-                    },
+//                    onTap = {
+//                        Log.i(APP_TAG,"Tap detected")
+//                    },
+//
+//                    onPress = {
+//                        Log.i(APP_TAG,"onPress detected")
+//                    },
 
                     onLongPress = {
                         Log.i(APP_TAG,"Long press detected")
+                        showDeleteDialog.value = true
+                        viewModel.selectedCountryForDeletion.value = country
                     }
                 )
             }
@@ -75,23 +80,26 @@ fun CountryCardLayout(country: Country,
             Text(
                 text = it,
                 modifier = Modifier
-                    .padding(2.dp)
+                    .padding(top = 14.dp, start = 2.dp, end = 2.dp)
+                    .fillMaxWidth(0.3f)
                     .constrainAs(name) {
                         top.linkTo(flag.bottom)
                         start.linkTo(parent.start)
                         end.linkTo(flag.end)
                     },
                 textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.bodyLarge
+                style = MaterialTheme.typography.bodyLarge,
+                overflow = TextOverflow.Ellipsis,
+                maxLines = 1
             )
         }
 
-        country.capital?.get(0)?.let {
+        country.capital?.firstOrNull()?.let {
             Text(text = it,
                 style = MaterialTheme.typography.titleSmall,
                 textAlign = TextAlign.Left,
                 modifier = Modifier
-                    .padding(2.dp)
+                    .padding(top = 5.dp, bottom = 5.dp, start = 2.dp, end = 2.dp)
                     .constrainAs(capital) {
                         top.linkTo(name.bottom)
                         start.linkTo(parent.start)
@@ -146,24 +154,30 @@ fun CountryCardLayout(country: Country,
                     .fillMaxWidth(0.8f))
         }
 
-        country.currencies?.entries?.first()?.let{
+        country.currencies?.entries?.firstOrNull()?.let{
             CircularText(text = it.value.symbol.toString(),
                 modifier = Modifier
+                    .padding(bottom = 10.dp)
                     .constrainAs(currencySymbol) {
                         start.linkTo(flag.end, margin = 30.dp)
                         bottom.linkTo(parent.bottom, margin = 8.dp)
                     })
         }
 
-        country.currencies?.entries?.first()?.let{
+        country.currencies?.entries?.firstOrNull()?.let{
             Text(text = it.value.name.toString(),
                 modifier = Modifier
+                    .padding(start = 5.dp, end = 5.dp)
                     .constrainAs(currencyName) {
                         top.linkTo(subregion.bottom)
                         start.linkTo(currencySymbol.end, margin = 12.dp)
                         bottom.linkTo(parent.bottom, margin = 5.dp)
                         end.linkTo(mobileCode.start)
-                    }, textAlign = TextAlign.Center
+                    }
+                    .width(100.dp),
+                textAlign = TextAlign.Center,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
             )
         }
 
@@ -179,7 +193,7 @@ fun CountryCardLayout(country: Country,
             )
         }
 
-        country.tld?.get(0)?.let {
+        country.tld?.firstOrNull()?.let {
             Text(
                 text = it,
                 modifier = Modifier

@@ -1,4 +1,4 @@
-package com.ms.countryapp.composables
+package com.ms.countryapp.components
 
 
 import androidx.compose.material.icons.Icons
@@ -12,11 +12,13 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.ms.countryapp.R
 import com.ms.countryapp.screens.MainScreen
+import com.ms.countryapp.viewModel.CountryOperationViewModel
 import com.ms.countryapp.viewModel.CountryViewModel
 
 
@@ -24,6 +26,8 @@ import com.ms.countryapp.viewModel.CountryViewModel
 @Composable
 fun CountryAppScaffold() {
     val viewModel = hiltViewModel<CountryViewModel>()
+    val countryOperationViewModel = hiltViewModel<CountryOperationViewModel>()
+    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
 
     Scaffold(
         topBar = {
@@ -44,10 +48,11 @@ fun CountryAppScaffold() {
                     IconButton(onClick = {/* Handle click */}) {
                         Icon(imageVector = Icons.Filled.MoreVert, contentDescription = stringResource(R.string.more))
                     }
-                }
+                },
+                scrollBehavior = scrollBehavior,
             )
         }
     ) { innerPadding ->
-        MainScreen(innerPadding, viewModel = viewModel)
+        MainScreen(innerPadding, viewModel, countryOperationViewModel)
     }
 }

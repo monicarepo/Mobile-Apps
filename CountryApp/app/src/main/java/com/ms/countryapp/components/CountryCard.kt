@@ -1,4 +1,4 @@
-package com.ms.countryapp.composables
+package com.ms.countryapp.components
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.fillMaxWidth
