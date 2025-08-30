@@ -37,6 +37,7 @@ class CountryOperationViewModel @Inject constructor(private val countryRepositor
         country.let {
             countryRepository.deleteCountry(it)
         }
+        getAllCountries()
     }
 
     override suspend fun updateCountry(

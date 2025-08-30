@@ -1,9 +1,11 @@
 package com.ms.countryapp.data
 
+import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import kotlinx.serialization.Serializable
 
+@Entity
 @Serializable
 data class Country (
     @PrimaryKey(autoGenerate = true)

@@ -34,7 +34,7 @@ fun MainScreen(innerPaddingValues: PaddingValues,
 
     val showDeleteAlertDialog = viewModel.showDeleteAlertDialog
     val showUpdateAlertDialog = viewModel.showUpdateAlertDialog
-    val selectedCountryForDeletion = viewModel.selectedCountryForDeletion.value
+    val selectedCountryForDeletion = viewModel.selectedCountryForDeletion
     val selectedCountryForUpdation = viewModel.selectedCountryForUpdation.value
 
     //val countryList: MutableState<List<Country>> = Utility().readJsonFile(LocalContext.current)
@@ -61,12 +61,9 @@ fun MainScreen(innerPaddingValues: PaddingValues,
                     }
                 } else -> {
                     LazyColumn {
-                        items(items = countryList) { country ->
+                        items(items = countryList, key = { country -> country.id ?: 0 }) { country ->
                             CountryCard(country,showDeleteAlertDialog,showUpdateAlertDialog, viewModel)
                         }
-//                        items(items = countryList.value, key = { country -> country.id ?: 0}) { country ->
-//                            CountryCard(country,showDeleteAlertDialog,showUpdateAlertDialog, viewModel)
-//                       }
                     }
                 }
             }
@@ -78,9 +75,10 @@ fun MainScreen(innerPaddingValues: PaddingValues,
         message = "Enter new capital",
         currentCapital = selectedCountryForUpdation?.capital?.get(0) ?: "NA",
         positiveAction = { newCapital ->
-            viewModel.viewModelScope.launch {
+            countryOperationViewModel.viewModelScope.launch {
                 selectedCountryForUpdation?.let {
                     //UpdateCountry
+                    countryOperationViewModel.updateCountry(it, newCapital)
                 }
             }
         }
@@ -89,11 +87,12 @@ fun MainScreen(innerPaddingValues: PaddingValues,
     MyAlertDialog(showDialog = showDeleteAlertDialog,
         title = "Delete Capital",
         message = "Do you want to delete this country?",
-        currentCapital = selectedCountryForDeletion?.capital?.get(0) ?: "NA",
+        currentCapital = "NA",
         positiveAction = {
-            viewModel.viewModelScope.launch {
-                selectedCountryForDeletion?.let {
-
+            countryOperationViewModel.viewModelScope.launch {
+                selectedCountryForDeletion.let {
+                    countryOperationViewModel.deleteCountry(it.value!!)
+                    selectedCountryForDeletion.value = null
                 }
             }
         }
